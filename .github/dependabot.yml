@@ -7,7 +7,7 @@ updates:
       interval: "daily"
 
     # Giới hạn số PR được mở lên là 10
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
     # Gom nhóm các bản cập nhật thường và bảo mật:
     groups:
       vulnerabilities: # Tên nhóm (tự đặt)
@@ -25,7 +25,7 @@ updates:
       interval: "daily"
 
     # Giới hạn số PR được mở lên là 10
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
     # Gom nhóm các bản cập nhật thường và bảo mật:
     groups:
       vulnerabilities: # Tên nhóm (tự đặt)
