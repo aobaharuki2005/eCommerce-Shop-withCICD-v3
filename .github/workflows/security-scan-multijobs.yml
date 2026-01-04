@@ -91,3 +91,33 @@ jobs:
           if [ "${{ env.VULN_COUNT }}" -gt 0 ]; then
             exit 1
           fi
+
+# --- JOB 3: GỬI THÔNG BÁO EMAIL KHI CÓ LỖI ---
+  notify-failure:
+    name: Notify Failure
+    runs-on: ubuntu-latest
+    # Job này cần kết quả từ 2 job trước
+    needs: [sonarqube, trivy-scan]
+    # Chỉ chạy nếu có ít nhất 1 job thất bại (failure)
+    environment: send-email
+    if: failure()
+    steps:
+      - name: Send Mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "⚠️ CẢNH BÁO: Bảo mật thất bại tại ${{ github.repository }}"
+          to: email-cua-ban@gmail.com
+          from: GitHub Security Watcher
+          body: |
+            Phát hiện lỗi bảo mật hoặc mã nguồn không đạt chuẩn!
+            
+            - Project: ${{ github.repository }}
+            - Nhánh: ${{ github.ref_name }}
+            - Trạng thái SonarQube: ${{ needs.sonarqube.result }}
+            - Trạng thái Trivy: ${{ needs.trivy-scan.result }}
+            
+            Chi tiết tại: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
