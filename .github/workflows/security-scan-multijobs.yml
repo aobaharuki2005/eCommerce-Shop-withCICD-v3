@@ -110,7 +110,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "⚠️ CẢNH BÁO: Bảo mật thất bại tại ${{ github.repository }}"
-          to: email-cua-ban@gmail.com
+          to: tranbaodct6ath@gmail.com
           from: GitHub Security Watcher
           body: |
             Phát hiện lỗi bảo mật hoặc mã nguồn không đạt chuẩn!
